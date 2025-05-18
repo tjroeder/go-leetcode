@@ -29,9 +29,14 @@ func TestValidPalindrome(t *testing.T) {
 			want:        true,
 		},
 		{
-			description: "is not a palindrome",
-			given:       "Madam, in Eden, Im Adam",
+			description: "is palindrome, with numbers",
+			given:       "1A@2!3 23!2@a1",
 			want:        true,
+		},
+		{
+			description: "is not a palindrome",
+			given:       "notpalindrome",
+			want:        false,
 		},
 	}
 
