@@ -1,33 +1,60 @@
 package happynumber
 
-import (
-	"math"
-	"strconv"
-)
+// isHappy with fast and slow pointers
+// func isHappy(n int) bool {
+// 	slow, fast := n, calcSquareOfDigits(n)
+// 	if fast == 1 {
+// 		return true
+// 	}
 
-// without hashset
+// 	for slow != fast {
+// 		if fast == 1 {
+// 			return true
+// 		}
+// 		slow, fast = calcSquareOfDigits(slow), calcSquareOfDigits(calcSquareOfDigits(fast))
+// 	}
+// 	return false
+// }
+
+// isHappy with set
 func isHappy(n int) bool {
-	slow, fast := n, calcSquareOfDigits(n)
-	if fast == 1 {
-		return true
-	}
+	set := make(map[int]bool)
 
-	for slow != fast {
-		if fast == 1 {
-			return true
+	for n != 1 && !set[n] {
+		set[n] = true
+		sum := 0
+
+		for n > 0 {
+			digit := n % 10
+			sum += digit * digit
+			n /= 10
 		}
-		slow, fast = calcSquareOfDigits(slow), calcSquareOfDigits(calcSquareOfDigits(fast))
+		n = sum
 	}
-	return false
+
+	return n == 1
 }
 
-func calcSquareOfDigits(n int) int {
-	numStr := strconv.Itoa(n)
-	sum := 0
+// cal square of digits with strconv
+// func calcSquareOfDigits(n int) int {
+// 	numStr := strconv.Itoa(n)
+// 	sum := 0
 
-	for _, n := range numStr {
-		digit, _ := strconv.Atoi(string(n))
-		sum += int(math.Pow(float64(digit), 2))
-	}
-	return sum
-}
+// 	for _, n := range numStr {
+// 		digit, _ := strconv.Atoi(string(n))
+// 		sum += int(math.Pow(float64(digit), 2))
+// 	}
+// 	return sum
+// }
+
+// cal square of digits with mod
+// func calcSquareOfDigits(n int) int {
+// 	sum := 0
+
+// 	for n > 0 {
+// 		digit := n % 10
+// 		sum += digit * digit
+// 		n /= 10
+// 	}
+// 	return sum
+// }
