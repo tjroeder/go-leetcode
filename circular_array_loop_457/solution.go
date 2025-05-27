@@ -1,9 +1,12 @@
 package circulararrayloop
 
 func circularArrayLoop(nums []int) bool {
+	hm := make(map[int]bool)
 	for i := 0; i < len(nums); i++ {
+		if hm[i] {
+			continue
+		}
 		slow, fast := i, i
-
 		isForward := nums[i] > 0
 
 		for {
@@ -23,6 +26,8 @@ func circularArrayLoop(nums []int) bool {
 			if isNotCycle(nums, isForward, fast) {
 				break
 			}
+			hm[slow] = true
+			hm[fast] = true
 
 			if slow == fast {
 				return true
