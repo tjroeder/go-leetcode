@@ -11,39 +11,68 @@ package slidingwindowmaximum
 // 	return maxValues
 // }
 
-// approach with sliding window
+// sliding window without deque
 func maxSlidingWindow(nums []int, k int) []int {
-	n := len(nums)
-	if n == 1 {
-		return nums
+	if len(nums) == 0 || k <= 0 {
+		return []int{}
 	}
 
-	maxValues := make([]int, n-k+1)
-	currentWindow := NewDeque()
-	// iterate over the first k elements
-	for i := 0; i < k; i++ {
-		cleanUp(i, currentWindow, nums)
-		currentWindow.PushBack(i)
-	}
+	maxValues := []int{}
+	window := []int{}
 
-	// add the first max value from the initial k elements
-	maxValues[0] = nums[currentWindow.Front()]
-	for i := k; i < n; i++ {
-		cleanUp(i, currentWindow, nums)
-		// check if the first element in currentWindow is even within our current k window
-		if currentWindow.Len() > 0 && currentWindow.Front() <= i-k {
-			currentWindow.PopFront()
+	for i, num := range nums {
+		// Remove indices from front if out of window
+		for len(window) > 0 && window[0] <= i-k {
+			window = window[1:]
 		}
-		currentWindow.PushBack(i)
-		maxValues[i-k+1] = nums[currentWindow.Front()]
+
+		// Remove indices from back if current element is greater
+		for len(window) > 0 && nums[window[len(window)-1]] <= num {
+			window = window[:len(window)-1]
+		}
+		window = append(window, i)
+
+		// Add to maxValues if window is full
+		if i >= k-1 {
+			maxValues = append(maxValues, nums[window[0]])
+		}
 	}
 	return maxValues
 }
 
-// function to clean up the window
-func cleanUp(i int, currentWindow *Deque, nums []int) {
-	// removes all values in currentWindow which are less than the nums[i]
-	for currentWindow.Len() > 0 && nums[i] >= nums[currentWindow.Back()] {
-		currentWindow.PopBack()
-	}
-}
+// approach with sliding window deque
+// func maxSlidingWindow(nums []int, k int) []int {
+// 	n := len(nums)
+// 	if n == 1 {
+// 		return nums
+// 	}
+
+// 	maxValues := make([]int, n-k+1)
+// 	window := NewDeque()
+// 	// iterate over the first k elements
+// 	for i := 0; i < k; i++ {
+// 		cleanUp(i, window, nums)
+// 		window.PushBack(i)
+// 	}
+
+// 	// add the first max value from the initial k elements
+// 	maxValues[0] = nums[window.Front()]
+// 	for i := k; i < n; i++ {
+// 		cleanUp(i, window, nums)
+// 		// check if the first element in window is even within our current k window
+// 		if window.Len() > 0 && window.Front() <= i-k {
+// 			window.PopFront()
+// 		}
+// 		window.PushBack(i)
+// 		maxValues[i-k+1] = nums[window.Front()]
+// 	}
+// 	return maxValues
+// }
+
+// // function to clean up the window
+// func cleanUp(i int, window *Deque, nums []int) {
+// 	// removes all values in window which are less than the nums[i]
+// 	for window.Len() > 0 && nums[i] >= nums[window.Back()] {
+// 		window.PopBack()
+// 	}
+// }

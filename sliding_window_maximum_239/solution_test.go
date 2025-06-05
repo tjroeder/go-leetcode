@@ -14,12 +14,12 @@ func TestMaxSlidingWindow(t *testing.T) {
 		givenK      int
 		want        []int
 	}{
-		// {
-		// 	description: "single sliding window max",
-		// 	givenNums:   []int{1},
-		// 	givenK:      1,
-		// 	want:        []int{1},
-		// },
+		{
+			description: "single sliding window max",
+			givenNums:   []int{1},
+			givenK:      1,
+			want:        []int{1},
+		},
 		{
 			description: "multiple max sliding window values",
 			givenNums:   []int{1, 3, -1, -3, 5, 3, 6, 7},
