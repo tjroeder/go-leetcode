@@ -68,8 +68,8 @@ func minWindowLeetcode(s, t string) string {
 	// of the leading zero. Then converted to int... I think it's easier to
 	// just know that we shouldn't be greater than the length of s...
 	minSubLen := sLen + 1
-	minSubString := ""
 	left, right := 0, 0
+	startIdx := 0
 
 	// move left through s to find the left bound, while right will
 	// do the right.
@@ -91,11 +91,13 @@ func minWindowLeetcode(s, t string) string {
 		// can shrink the window
 		for count == 0 {
 			// if the left and right bounds of the window are less than the
-			// last substring length, set the minSubString to the window
-			// and set the new length to minSubLen
+			// last substring length, set the startIdx to the left bound of
+			// the window, this in combination with the length will give the
+			// substring in the end rather than continuously updating a substring
+			// variable
 			if right-left < minSubLen {
-				minSubString = s[left:right]
-				minSubLen = len(minSubString)
+				startIdx = left
+				minSubLen = len(s[left:right])
 			}
 
 			// if there is a hit on the left pointer, increase the character value before
@@ -117,7 +119,7 @@ func minWindowLeetcode(s, t string) string {
 	if minSubLen > sLen {
 		return ""
 	}
-	return minSubString
+	return s[startIdx : startIdx+minSubLen]
 }
 
 // little more elegant version from leetcode
@@ -127,7 +129,7 @@ func minWindowLeetcode(s, t string) string {
 // ones we are looking for in t, but only decreases the count if we
 // are looking for that character. It also keeps track of where the
 // left pointer previously was for the substring, rather than continuously
-// updating a substring value holder like my minSubString return.
+// updating a substring value holder (old note---like my minSubString return.)
 // func minWindowLeetcode(s string, t string) string {
 // 	if len(s) == 0 || len(t) == 0 || len(s) < len(t) {
 // 		return ""

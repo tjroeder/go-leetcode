@@ -70,7 +70,7 @@ func TestMinWindowLeetcode(t *testing.T) {
 			description: "substring is the full string t",
 			givenT:      "a",
 			givenS:      "a",
-			want:        "a	",
+			want:        "a",
 		},
 		{
 			description: "substring with multiple matches",
