@@ -66,12 +66,12 @@ func TestMinWindowLeetcode(t *testing.T) {
 		givenT      string
 		want        string
 	}{
-		// {
-		// 	description: "substring is the full string t",
-		// 	givenT:      "a",
-		// 	givenS:      "a",
-		// 	want:        "a	",
-		// },
+		{
+			description: "substring is the full string t",
+			givenT:      "a",
+			givenS:      "a",
+			want:        "a	",
+		},
 		{
 			description: "substring with multiple matches",
 			givenT:      "ADOBECODEBANC",
