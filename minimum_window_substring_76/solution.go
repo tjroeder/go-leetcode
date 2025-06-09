@@ -1,56 +1,8 @@
 package minimumwindowsubstring
 
-import "math"
-
-func minWindowEducative(s string, t string) string {
-	sLen, tLen := len(s), len(t)
-	minSubLen := math.Inf(1)
-	minSubSequence := ""
-	sIdx, tIdx := 0, 0
-
-	// iterate over s
-	for sIdx < sLen {
-		// if character at s[sIdx] matches t[tIdx] we know we need to increment
-		// both values at minimum, we may not be at the end of t (substring) yet
-		if s[sIdx] == t[tIdx] {
-			tIdx++
-
-			// if we've reached the end of our substring t
-			if tIdx == tLen {
-				// now we need to back track to find the true minimum
-				// start will go back till we find t[0] in s
-				start, end := sIdx-1, sIdx
-				tIdx--
-				tIdx--
-				for tIdx >= 0 {
-					// decrement tIdx only if there is a match always decrement start
-					if s[start] == t[tIdx] {
-						if tIdx == 0 {
-							break
-						}
-						tIdx--
-					}
-					start--
-				}
-
-				currLen := float64(end - start + 1)
-				if currLen < minSubLen {
-					minSubLen = currLen
-					minSubSequence = s[start : end+1]
-				}
-				sIdx = start
-				tIdx = 0
-			}
-		}
-		// no match so keep moving through s
-		sIdx++
-	}
-	return minSubSequence
-}
-
 // my looong but working leetcode, think it is a little more readible
 // though than the one below I found on leetcode.
-func minWindowLeetcode(s, t string) string {
+func minWindow(s, t string) string {
 	// check initial conditions
 	if s == "" || t == "" || len(s) < len(t) {
 		return ""
@@ -130,7 +82,7 @@ func minWindowLeetcode(s, t string) string {
 // are looking for that character. It also keeps track of where the
 // left pointer previously was for the substring, rather than continuously
 // updating a substring value holder (old note---like my minSubString return.)
-// func minWindowLeetcode(s string, t string) string {
+// func minWindow(s string, t string) string {
 // 	if len(s) == 0 || len(t) == 0 || len(s) < len(t) {
 // 		return ""
 // 	}
