@@ -187,3 +187,59 @@ func minWindow(s1, s2 string) string {
 
 // 	return s[startIndex : startIndex+minLen]
 // }
+
+// this is educatives solution, I did refactor some to improve though
+// the solution though is very self explanitory in that it has counts needed
+// and the current counts in the window. It also stores the current result left
+// and right bounds which is nice...
+// func minWindow(s string, t string) string {
+// 	if t == "" || len(s) < len(t) {
+// 		return ""
+// 	}
+
+// 	reqCount := make(map[byte]int)
+// 	window := make(map[byte]int)
+
+// 	for i := range t {
+// 		reqCount[t[i]]++
+// 		window[t[i]] = 0
+// 	}
+
+// 	current, required := 0, len(reqCount)
+// 	res, resLen := [2]int{-1, -1}, len(s)+1
+// 	left := 0
+
+// 	for right := 0; right < len(s); right++ {
+// 		c := s[right]
+
+// 		if _, ok := reqCount[c]; ok {
+// 			window[c]++
+
+// 			if window[c] == reqCount[c] {
+// 				current++
+// 			}
+// 		}
+
+// 		for current == required {
+// 			if (right - left + 1) < resLen {
+// 				res = [2]int{left, right}
+// 				resLen = (right - left + 1)
+// 			}
+
+// 			if _, ok := reqCount[s[left]]; ok {
+// 				window[s[left]]--
+
+// 				if window[s[left]] < reqCount[s[left]] {
+// 					current--
+// 				}
+// 			}
+// 			left++
+// 		}
+// 	}
+// 	left, right := res[0], res[1]
+
+// 	if resLen != math.MaxInt32 {
+// 		return s[left : right+1]
+// 	}
+// 	return ""
+// }
