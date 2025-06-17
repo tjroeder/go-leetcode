@@ -20,18 +20,18 @@ func TestCoinChange(t *testing.T) {
 			givenAmount: 11,
 			want:        3,
 		},
-		// {
-		// 	description: "cannot be made up of any combination of coins",
-		// 	givenCoins:  []int{2},
-		// 	givenAmount: 3,
-		// 	want:        -1,
-		// },
-		// {
-		// 	description: "zero amount",
-		// 	givenCoins:  []int{1},
-		// 	givenAmount: 0,
-		// 	want:        0,
-		// },
+		{
+			description: "cannot be made up of any combination of coins",
+			givenCoins:  []int{2},
+			givenAmount: 3,
+			want:        -1,
+		},
+		{
+			description: "zero amount",
+			givenCoins:  []int{1},
+			givenAmount: 0,
+			want:        0,
+		},
 	}
 
 	for i, tc := range testCases {
