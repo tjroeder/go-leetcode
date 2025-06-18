@@ -26,9 +26,7 @@ func merge(intervals [][]int) [][]int {
 		if res[len(res)-1][1] >= intervals[i][0] {
 			// if the last value of the current intervals slice [i][1] is less than
 			// or equal to the last value of the previous result interval slice [len(res)-1][1]
-			if res[len(res)-1][1] <= intervals[i][1] {
-				res[len(res)-1][1] = intervals[i][1]
-			}
+			res[len(res)-1][1] = max(res[len(res)-1][1], intervals[i][1])
 		} else {
 			res = append(res, intervals[i])
 		}
