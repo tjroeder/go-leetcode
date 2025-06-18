@@ -3,13 +3,18 @@ package mergeintervals
 import "slices"
 
 func merge(intervals [][]int) [][]int {
-	// sort the intervals by start time
+	// sort the intervals by start time with no tie-breaker
 	slices.SortFunc(intervals, func(a, b []int) int {
-		if a[0] != b[0] {
-			return a[0] - b[0]
-		}
-		return a[1] - b[1]
+		return a[0] - b[0]
 	})
+
+	// sort the intervals by start time with tie-breaker (this is slower)
+	// slices.SortFunc(intervals, func(a, b []int) int {
+	// 	if a[0] != b[0] {
+	// 		return a[0] - b[0]
+	// 	}
+	// 	return a[1] - b[1]
+	// })
 
 	// create a result 2d slice, and populate first element with the first element
 	// in the sorted intervals slice
