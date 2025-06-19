@@ -26,7 +26,8 @@ func insert(intervals [][]int, newInterval []int) [][]int {
 		if res[len(res)-1][1] >= intervals[i][0] { // last element of res ending interval >= current intervals beginning interval
 			res[len(res)-1][1] = max(res[len(res)-1][1], intervals[i][1]) // pick the largest last interval
 		} else {
-			res = append(res, intervals[i])
+			res = append(res, intervals[i:]...)
+			break
 		}
 		i++
 	}
@@ -59,4 +60,33 @@ func insert(intervals [][]int, newInterval []int) [][]int {
 // 		}
 // 	}
 // 	return res
+// }
+
+// leetcode solution, with minor refactor to remove math import and float64/int conversions
+// also removed the last for loop to use append with remaining elements expanded
+// func insert(intervals [][]int, newInterval []int) [][]int {
+// 	var result [][]int
+
+// 	// Iterate through intervals and add non-overlapping intervals before newInterval
+// 	i := 0
+// 	for i < len(intervals) && intervals[i][1] < newInterval[0] {
+// 		result = append(result, intervals[i])
+// 		i++
+// 	}
+
+// 	// Merge overlapping intervals
+// 	for i < len(intervals) && intervals[i][0] <= newInterval[1] {
+// 		newInterval[0] = min(newInterval[0], intervals[i][0])
+// 		newInterval[1] = max(newInterval[1], intervals[i][1])
+// 		i++
+// 	}
+
+// 	// Add merged newInterval
+// 	result = append(result, newInterval)
+
+// 	// Add non-overlapping intervals after newInterval
+// 	// for i < len(intervals) {
+// 	result = append(result, intervals[i:]...)
+
+// 	return result
 // }
